@@ -1,0 +1,127 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+import javax.swing.JFrame;
+
+public class IR_Main extends JFrame{
+	
+	static String[]suffixlist = {"ing", "ed", "d", "s", "es", "ly", "ful", "able", "tion", "ous"};  // suffix
+	
+	static String Input = null;  // input text
+	static 	Set<Integer> rootSet = new HashSet<Integer>();
+	static boolean mat = false;  // 단어 검색
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		FileRead();  // 파일을 로드하여 해시에 단어 저장
+		while(true) {
+			Input = Scan();
+			mat = rootSet.contains(Input.hashCode());
+			if(mat == true) {
+				System.out.println(Input);
+			} else {
+				find();
+			}
+		}	
+	}
+	
+	static void FileRead() {
+						
+			String FileName = "dictionary - make.txt";
+			try {
+				BufferedReader in = new BufferedReader(new FileReader(FileName));
+				String hashText;
+
+				while ((hashText = in.readLine()) != null) {
+					rootSet.add(hashText.hashCode());
+				}
+				
+				in.close();
+			   
+			} catch (IOException e) {
+				System.err.println(e); // 에러가 있다면 메시지 출력
+				System.exit(1);
+			}
+	}
+	
+
+	private static String Scan() {
+		// TODO Auto-generated method stub
+		String inputText;
+		System.out.print("input : ");
+		Scanner sc = new Scanner(System.in);
+		inputText = sc.nextLine();
+		return inputText;
+	}
+	
+
+	private static boolean matching(String suffix) {
+		
+		boolean suffixmatching = false;
+		int i = 0;
+		while(!suffixmatching) {
+			if(suffixlist[i].equals(suffix) == true) {
+				return true;
+			}else {
+				i++;
+				if(i == suffixlist.length) {
+					break;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private static void find() {
+		for(int i=0;i<Input.length();i++) {
+			String subString = Input.substring(0,Input.length()-i);
+			String suffix = Input.substring(Input.length()-i, Input.length());
+			
+			mat = rootSet.contains(subString.hashCode());
+			
+			if(mat == true) {
+				mat = matching(suffix);
+				if(mat == true) {
+					System.out.println(subString + " " + suffix);
+				} else {
+					System.out.println("없는단어");
+				}
+				break;
+			} else {
+				if(suffix.equals("ing")) {
+					mat = find(subString, "ing", "e");
+					if(mat == true) break;
+				} else if(suffix.equals("iful")) {
+					mat = find(subString, "ful", "y");
+					if(mat == true) break;
+				}else if(suffix.equals("ying")) {
+					mat = find(subString, "ing", "ie");
+					if(mat == true) break;
+				}else if(suffix.equals("ied")) {
+					mat = find(subString, "ed", "y");
+					if(mat == true) break;
+				}else if(i == Input.length()-1 && mat == false) {
+					System.out.println("없는 단어");
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	private static boolean find(String text, String matching, String add) {
+		mat = rootSet.contains((text + add).hashCode());
+		if(mat == true) {
+			System.out.println(text + add + " " + matching);
+			return true;
+		}else {
+			return false;
+		}
+	}
+}
