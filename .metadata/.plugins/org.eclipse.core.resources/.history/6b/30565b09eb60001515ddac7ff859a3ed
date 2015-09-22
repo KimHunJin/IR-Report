@@ -10,12 +10,12 @@ import javax.swing.JFrame;
 public class IR_Main extends JFrame{
 
 	
-//	static String[] text = {"go","can","do","man","clock","ask"};
-//	static String[] multi = {"s", "es"};
-//	static String[] past = {"d", "ed"};
-//	static String[] now = {"ing"};
-//		
-//	static String[][] matching = {text, multi, past, now};
+	static String[] text = {"go","can","do","man","clock","ask"};
+	static String[] multi = {"s", "es"};
+	static String[] past = {"d", "ed"};
+	static String[] now = {"ing"};
+		
+	static String[][] matching = {text, multi, past, now};
 	
 	static String Input = null;
 	static boolean success = false;
@@ -34,7 +34,7 @@ public class IR_Main extends JFrame{
 			if(mat == true) {
 				System.out.println(Input);
 			} else {
-				find();
+				find1();
 			}
 		}
 		
@@ -69,31 +69,23 @@ public class IR_Main extends JFrame{
 		return inputText;
 	}
 	
-	private static void find() {
+	private static void find1() {
 		for(int i=0;i<Input.length();i++) {
 			mat = rootSet.contains(Input.substring(0,Input.length()-i).hashCode());
 			if(mat == true) {
 				System.out.println(Input.substring(0,Input.length()-i) + " " + Input.substring(Input.length()-i, Input.length()));
 				break;
 			} else {
-				if(Input.substring(Input.length()-i, Input.length()).equals("ing")) {
-					find(Input.substring(0,Input.length()-i), "ing", "e");
-					break;
-				} else if(Input.substring(Input.length()-i, Input.length()).equals("iful")) {
-					find(Input.substring(0,Input.length()-i), "ful", "y");
-					break;
-				} else if(i == Input.length()-1) {
-					System.out.println("없는 단어");
-					break;
+				if(i==Input.length()) {
+					find2();
 				}
 			}
 		}
 	}
 	
-	private static void find(String text, String matching, String add) {
-		mat = rootSet.contains((text + add).hashCode());
-		if(mat == true) {
-			System.out.println(text + add + " " + matching);
-		}
+	// find2 = 
+	private static void find2() {
+		
 	}
+
 }

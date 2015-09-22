@@ -170,3 +170,8 @@ wall
 x-ray
 yard
 zoo
+do
+beauty
+compute
+lonely
+awful

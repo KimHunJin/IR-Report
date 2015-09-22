@@ -5,17 +5,15 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import javax.swing.JFrame;
-
-public class IR_Main extends JFrame{
+public class IR_Main {
 
 	
-//	static String[] text = {"go","can","do","man","clock","ask"};
-//	static String[] multi = {"s", "es"};
-//	static String[] past = {"d", "ed"};
-//	static String[] now = {"ing"};
-//		
-//	static String[][] matching = {text, multi, past, now};
+	static String[] text = {"go","can","do","man","clock","ask"};
+	static String[] multi = {"s", "es"};
+	static String[] past = {"d", "ed"};
+	static String[] now = {"ing"};
+		
+	static String[][] matching = {text, multi, past, now};
 	
 	static String Input = null;
 	static boolean success = false;
@@ -25,7 +23,7 @@ public class IR_Main extends JFrame{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-//		new FileRead(rootSet);		
+//		new FileRead(rootSet);
 		FileRead();
 		while(true) {
 			Input = Scan();
@@ -75,25 +73,8 @@ public class IR_Main extends JFrame{
 			if(mat == true) {
 				System.out.println(Input.substring(0,Input.length()-i) + " " + Input.substring(Input.length()-i, Input.length()));
 				break;
-			} else {
-				if(Input.substring(Input.length()-i, Input.length()).equals("ing")) {
-					find(Input.substring(0,Input.length()-i), "ing", "e");
-					break;
-				} else if(Input.substring(Input.length()-i, Input.length()).equals("iful")) {
-					find(Input.substring(0,Input.length()-i), "ful", "y");
-					break;
-				} else if(i == Input.length()-1) {
-					System.out.println("없는 단어");
-					break;
-				}
 			}
 		}
 	}
-	
-	private static void find(String text, String matching, String add) {
-		mat = rootSet.contains((text + add).hashCode());
-		if(mat == true) {
-			System.out.println(text + add + " " + matching);
-		}
-	}
+
 }

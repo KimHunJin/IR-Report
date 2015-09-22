@@ -34,7 +34,7 @@ public class IR_Main extends JFrame{
 			if(mat == true) {
 				System.out.println(Input);
 			} else {
-				find();
+				find1();
 			}
 		}
 		
@@ -69,7 +69,7 @@ public class IR_Main extends JFrame{
 		return inputText;
 	}
 	
-	private static void find() {
+	private static void find1() {
 		for(int i=0;i<Input.length();i++) {
 			mat = rootSet.contains(Input.substring(0,Input.length()-i).hashCode());
 			if(mat == true) {
@@ -77,20 +77,17 @@ public class IR_Main extends JFrame{
 				break;
 			} else {
 				if(Input.substring(Input.length()-i, Input.length()).equals("ing")) {
-					find(Input.substring(0,Input.length()-i), "ing", "e");
-					break;
+					find2(Input.substring(0,Input.length()-i), "ing", "e");
 				} else if(Input.substring(Input.length()-i, Input.length()).equals("iful")) {
-					find(Input.substring(0,Input.length()-i), "ful", "y");
-					break;
-				} else if(i == Input.length()-1) {
+					find2(Input.substring(0,Input.length()-i), "ful", "y");
+				} else if(i == Input.length()) {
 					System.out.println("없는 단어");
-					break;
 				}
 			}
 		}
 	}
 	
-	private static void find(String text, String matching, String add) {
+	private static void find2(String text, String matching, String add) {
 		mat = rootSet.contains((text + add).hashCode());
 		if(mat == true) {
 			System.out.println(text + add + " " + matching);

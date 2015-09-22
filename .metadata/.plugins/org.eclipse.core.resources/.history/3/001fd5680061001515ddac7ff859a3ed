@@ -5,9 +5,9 @@ import java.sql.SQLException;
 public class DbConnect {
 	
 	static String dbServerAddr = "jdbc:mysql://220.67.115.33:3306/";
-	static String dbName = "";
-	static String user = "";
-	static String pswd = "";
+	static String dbName = "hjkim_1512";
+	static String user = "hjkim_1512";
+	static String pswd = "mosquito";
 	
 	static {
 		try {
