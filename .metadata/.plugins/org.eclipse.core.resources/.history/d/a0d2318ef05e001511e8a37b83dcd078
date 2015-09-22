@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class IR_Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	String[] text = {"go","can","do","man","clock","ask"};
+	String[] multi = {"s", "es"};
+	String[] past = {"d", "ed"};
+	String[] now = {"ing"};
+		
+	String[][] matching = {text, multi, past, now};
+		
+
+		
+		while(true) {
+			
+			Scan();  // 텍스트 입력
+
+			
+			// 1. high case - sentence
+			
+			// 2. low case - past, now, multi, ...
+			
+		}
+	}
+
+	private static void Scan() {
+		// TODO Auto-generated method stub
+		String inputText;
+		System.out.print("input : ");
+		Scanner sc = new Scanner(System.in);
+		inputText = sc.nextLine();
+	}
+	
+	private static void find() {
+		// find sentence for actually
+		
+	}
+	
+	private static void find(String text) {
+		
+	}
+	
+
+}

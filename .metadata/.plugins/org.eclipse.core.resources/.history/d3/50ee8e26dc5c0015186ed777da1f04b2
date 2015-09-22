@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class IR_Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	String[] text = {"go","can","do","man","clock","ask"};
+	String[] multy = {"s", "es"};
+	String[] past = {"d", "ed"};
+	String[] now = {"ing"};
+		
+	String[][] matching = {text, multy, past, now};
+		
+		String inputText;
+		
+		while(true) {
+			System.out.print("input : ");
+			Scanner sc = new Scanner(System.in);
+			inputText = sc.nextLine();
+			
+			// 1. high case - sentance
+			
+			// 2. low case - past, now, multy ...
+			
+		}
+	}
+
+}
