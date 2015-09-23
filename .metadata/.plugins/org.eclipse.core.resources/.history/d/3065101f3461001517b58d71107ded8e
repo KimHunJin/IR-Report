@@ -1,0 +1,216 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class MainIR extends JFrame implements KeyListener{
+	static String[] suffix = {"d","ed","es","s","ful","er","r","able","ing"};
+	static String InputText = null;
+	
+	private Connection conn = null;
+	private PreparedStatement stmt= null;
+	private ResultSet rs = null;
+	private ArrayList<String> list = new ArrayList<>();
+	
+	
+	private JFrame jframe = new JFrame();
+	private JTextArea jtaResult = new JTextArea();
+	private JTextField jtfInput = new JTextField();
+	private JScrollPane jscp = new JScrollPane(jtaResult);
+	
+	
+	MainIR() {
+		super("정보검색");
+		
+
+		
+		Container container = jframe.getContentPane();
+		
+		jtaResult.setEditable(false);
+		jtfInput.addKeyListener(this);
+
+		
+		jframe.add(jtaResult,"Center");
+		jframe.add(jtfInput, "South");
+		jframe.setSize(300,300);
+		jframe.setVisible(true);
+		
+		jframe.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				getList();
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+	}
+	
+	private void getList() {
+		try {
+			conn = DBConnect.getConnection();
+			String query = "SELECT `name` FROM `dictionaryn`;";
+			stmt = conn.prepareStatement(query);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(rs.getString("name").toString());
+			}
+			
+			rs.close();
+			stmt.close();
+			conn.close();
+
+						
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void search(String text) {
+		boolean test = list.contains(text);
+		boolean suffixmatching = false;
+
+		if(test == true) {
+			jtaResult.append("원형 : " + text + "\r\n");
+		} else {
+			for(int i=0;i<text.length();i++) {
+				String suffixText =	text.substring(text.length()-i,text.length());
+				String originalText = text.substring(0,text.length()-i);
+				
+				if(suffixText.equals(suffix[0])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "\t\t 접미사 " + suffix[0] +"\r\n");
+						break;
+					}
+				} else if(suffixText.equals(suffix[1])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "\t\t 접미사 " + suffix[1] +"\r\n");
+						break;
+					}
+				} else if(suffixText.equals(suffix[2])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "\t\t 접미사 " + suffix[2] +"\r\n");
+						break;
+					}
+				} else if(suffixText.equals(suffix[3])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "\t\t 접미사 " + suffix[3] +"\r\n");
+						break;
+					}
+				} else if(suffixText.equals(suffix[4])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "y\t\t 접미사 " + suffix[4] +"\r\n");
+						break;
+					}
+				} else if(suffixText.equals(suffix[5])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "\t\t 접미사 " + suffix[5] +"\r\n");
+						break;
+					}
+				} else if(suffixText.equals(suffix[6])) {
+					suffixmatching = list.contains(originalText);
+					if(suffixmatching == true) {
+						jtaResult.append("원형 : " + originalText + "\t\t 접미사 " + suffix[6] +"\r\n");
+						break;
+					}
+				} else if(i == text.length()-1) {
+					jtaResult.append("입력 단어 : " + text + " 없는 단어 \r\n");
+					break;
+				}				
+			}
+		}
+	}
+	
+
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getKeyChar() == KeyEvent.VK_ENTER) {
+			String text = new String();
+			text = jtfInput.getText();
+			jtfInput.setText("");
+			search(text);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		MainIR main = new MainIR();
+		
+	}
+
+}
