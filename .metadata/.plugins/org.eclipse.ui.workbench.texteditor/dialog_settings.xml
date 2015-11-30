@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="hash" key="selection"/>
+		<item value="System.out." key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="hash"/>
-			<item value="System"/>
-			<item value="불가능한"/>
-			<item value="미심쩍"/>
-			<item value="김광현"/>
-			<item value="코드"/>
-			<item value="의"/>
-			<item value="success"/>
+			<item value="System.out."/>
+			<item value="System."/>
+			<item value="외장하드"/>
+			<item value="match"/>
+			<item value="간편하게"/>
+			<item value="블로그"/>
+			<item value="포스팅"/>
+			<item value="워낙"/>
 		</list>
 		<list key="replacehistory">
 		</list>
@@ -23,8 +23,8 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="261" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
-		<item value="381" key="DIALOG_HEIGHT"/>
+		<item value="365" key="DIALOG_HEIGHT"/>
 		<item value="1167" key="DIALOG_X_ORIGIN"/>
-		<item value="48" key="DIALOG_Y_ORIGIN"/>
+		<item value="64" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

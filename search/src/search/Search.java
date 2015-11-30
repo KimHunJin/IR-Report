@@ -18,7 +18,7 @@ public class Search {
 			BufferedReader in;
 			in = new BufferedReader(new FileReader(FileName));
 			String text;
-			String match = "";
+			String match = "김헌진";
 			
 			 Pattern pattern = Pattern.compile(match, Pattern.CASE_INSENSITIVE);
 			 Matcher matcher;

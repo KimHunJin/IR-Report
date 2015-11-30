@@ -1,0 +1,120 @@
+package IR_Report3;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+import org.jsoup.Jsoup; //import Jsoup
+import org.jsoup.nodes.Document; //import Jsoup
+import org.jsoup.nodes.Element;
+
+public class URLParsing {
+
+	HashSet<String> hashSetString = new HashSet<>();
+	HashMap<String, Integer> hashMap = new HashMap<>();
+
+	public static void main(String[] args) {
+		new URLParsing().steaming();
+	}
+
+	private void steaming() {
+		// TODO Auto-generated constructor stub
+
+		addHash(getText(randomAddress()));
+
+		for (String string : hashSetString) {
+			System.out.println(string + "  " + hashMap.get(string));
+		}
+	}
+
+	private String getText(String addressURL) {
+		String text = null;
+		try {
+			Document doc = Jsoup.connect(addressURL).get(); // 웹에서
+			Element contents = doc.select("*").first(); // 내용 중에서 원하는 부분을 가져온다.
+			text = contents.text(); // 원하는 부분은 Elements형태로 되어 있으므로 이를
+			return text;
+
+		} catch (IOException ie) {
+			System.out.println("없는 주소입니다! ErrorCode = 404");
+			System.exit(0);
+			return null;
+		}
+	}
+
+	private String[] split(String text) {
+		return text.split(" ");
+	}
+
+	private String randomAddress() {
+		// String url = "http://cdmanii.com/" + randomNumber();
+		String url = "http://cdmanii.com/" + 4464;
+		System.out.println(url);
+		return url;
+	}
+
+	private int randomNumber() {
+
+		return (int) (Math.random() * 5000) + 1;
+	}
+
+	private void addHash(String text) {
+		String[] splitText = split(text);
+		for (String string : splitText) {
+			if (string.equals(" ")) {
+				continue;
+			}
+			string = steaming(string);
+
+			if (hashSetString.contains(string)) {
+				hashMap.put(string, hashMap.get(string) + 1);
+				continue;
+			} else {
+				hashSetString.add(string);
+				hashMap.put(string, 1);
+			}
+		}
+	}
+
+	/**
+	 * 특수문자 제거, 스테밍을 모두 처리하는 메서드
+	 * 
+	 * @param text
+	 * @return
+	 */
+	private String steaming(String text) {
+		text = deleteVerbe(text);
+		text = stringReplace(text);
+		text.trim();
+		return text;
+	}
+
+	/**
+	 * 특수문자 제거 메서드
+	 * 
+	 * @param text
+	 * @return
+	 */
+	private String stringReplace(String text) {
+		String match = "[^\uAC00-\uD7A3xfea-zA-Z\\s]";
+		text = text.replaceAll(match, "");
+		return text;
+	}
+
+	private String deleteVerbe(String text) {
+		String[] match = { "요", "다", "까", "냐", "나", "어" };
+		System.out.println(text.length());
+		if (text.length() == 0 || text.equals(" ")) {
+			;
+		} else {
+			for (int i = 0; i < match.length; i++) {
+				if (text.substring(text.length()).equals(match[i])) {
+					text = "";
+				}
+			}
+		}
+		return text;
+	}
+
+}
