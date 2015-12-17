@@ -1,0 +1,203 @@
+http://cdmanii.com/24
+MRTG 윈도우에 설치하기 :: 씨디맨의 컴퓨터이야기 skip to content 씨디맨의 컴퓨터이야기 씨디맨의 컴퓨터 이야기 (http://cdmanii.com) 블로그를 운영하고 있습니다. 컴퓨터와 IT 최신소식을 가장 빨리 전하기 위해서 노력하고 있습니다. 포스팅은 가능한 자세하게 그리고 사진설명으로 부족한 부분은 유튜브에 동영상을 올려서 설명하고 있습니다. 어떤 질문을 하더라도 자세한 답변을 드리기 위해서 노력중입니다. 블로그에는 질문답변란을 따로 만들어서 많은 사람들의 질문에 대해서 답변을 드리고 있습니다. 실제 사용자가 가장 궁금해할만한 내용에 rss feed 처음으로 소개 윈도우10 블로그 팁 리뷰 인텔조립 AMD조립 SSD최적화 질문 & 답변 MRTG 윈도우에 설치하기 Posted by 씨디맨 Posted in " 소프트웨어/서버관련 "   2007.10.24 21:26 MRTG 윈도우에 설치하기 Windows 에 MRTG 를 설치 해봅시다. MRTG 다운로드   http://oss.oetiker.ch/mrtg/pub/?M=D   mrtg-2.15.2.zip 위 링크사이트에서 최신버전을 다운로드 하여도 되며 왼쪽에 파일을 받아도 됩니다 ActivePerl 다운로드 (4개 분할압축파일)    http://www.activeperl.com ActivePerl-5.8.7.813-MSWin32-x86-148120.part2.rar ActivePerl-5.8.7.813-MSWin32-x86-148120.part1.rar ActivePerl-5.8.7.813-MSWin32-x86-148120.part4.rar ActivePerl-5.8.7.813-MSWin32-x86-148120.part3.rar MRTG Script 다운로드 http://www.apmsetup.com/files/mrtg_script.zip mrtg_script.zip 준비물이 갖추어 졌으면 설치를 진행해 보도록 하겠습니다. 일단 ActivePerl 을 기본적으로 C:\Perl 디렉토리에 설치 합니다. 이제 MRTG를 설치 하기 위해서는 SNMP 서비스가 설치되어 있어야 합니다. 설치되어 있지 않다면 시작 -> 제어판 -> 프로그램 추가/제거 -> 구성 요소 추가/제거 를 실행하여 관리 및 모니터링 도구 -> 자세히 -> SNMP(단순 네트워크 관리 프로토콜) 을 체크 하고 확인을 클릭하여 SNMP 서비스를 설치 합니다. 설치가 완료 되면 시작 -> 제어판 -> 관리도구 -> 서비스 를 클릭하여 SNMP Service 의 속성을 살펴 봅니다. SNMP Service 속성 -> 보안 에서 받아들인 커뮤니티 이름에 public 로 권한은 읽기 전용으로 추가 되어 있는지 확인해 주시고 만약 추가되어 있지 않다면 추가해 주시기 바랍니다. 이제 본격적으로 MRTG 를 설치해 보도록 하겠습니다. 다운로드 받은 MRTG압축 파일을 C:\MRTG 디렉토리로 압축을 해제해 주시기 바랍니다. 그런다음 MRTG 에서 생성된 htm 파일들을 저장하는 디렉토리를 C:\MRTG\output 으로 만들어 줍니다. 다운로드 받은 mrtg_script.zip 압축 파일을 해제 하여 모든 파일을 C:\MRTG\bin 디렉토리로 복사해 줍니다. 이제 스크립트 중에 cfgmaker.cmd 를 실행 시킵니다. 만약 위의 이미지 처럼 나타나지 않고 서버를 찾을 수 없다던지 관련 메세지가 나타나면 SNMP 서비스가 설치되어있지 않거나 커뮤니티를 잘못 설정한 경우이니 다시 한번 확인해 주시기 바랍니다. 위의 명령이 정상적으로 잘 되었다면 C:\MRTG\bin\mrtg.cfg 파일이 생성 되어 있을 것 입니다. 편집기로 열어 보면 # Created by 
+# C:\MRTG\bin\cfgmaker --ifref=descr --ifdesc=descr public@localhost
+
+
+### Global Config Options
+
+#  for UNIX
+# WorkDir: /home/http/mrtg
+
+#  or for NT
+# WorkDir: c:\mrtgdata
+
+### Global Defaults
+
+#  to get bits instead of bytes and graphs growing to the right
+# Options[_]: growright, bits
+
+EnableIPv6: no
+
+######################################################################
+# System: OKSTART2005
+# Description: Hardware: x86 Family 15 Model 3 Stepping 4 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Multiprocessor Free)
+# Contact: 
+# Location: 
+######################################################################
+
+
+### Interface 1 >> Descr: 'MS-TCP-Loopback-interface' | Name: '' | Ip: '127.0.0.1' | Eth: '' ###
+### The following interface is commented out because:
+### * it is a Software Loopback interface
+# 
+# Target[localhost_MS_TCP_Loopback_interface]: \MS\ TCP\ Loopback\ interface:public@localhost:
+# SetEnv[localhost_MS_TCP_Loopback_interface]: MRTG_INT_IP="127.0.0.1" MRTG_INT_DESCR="MS-TCP-Loopback-interface"
+# MaxBytes[localhost_MS_TCP_Loopback_interface]: 1250000
+# Title[localhost_MS_TCP_Loopback_interface]: MS TCP Loopback interface -- OKSTART2005
+# PageTop[localhost_MS_TCP_Loopback_interface]: <h1>MS TCP Loopback interface -- OKSTART2005</h1>
+# 		<div id="sysdetails">
+# 			<table>
+# 				<tr>
+# 					<td>System:</td>
+# 					<td>OKSTART2005 in </td>
+# 				</tr>
+# 				<tr>
+# 					<td>Maintainer:</td>
+# 					<td></td>
+# 				</tr>
+# 				<tr>
+# 					<td>Description:</td>
+# 					<td>MS-TCP-Loopback-interface  </td>
+# 				</tr>
+# 				<tr>
+# 					<td>ifType:</td>
+# 					<td>softwareLoopback (24)</td>
+# 				</tr>
+# 				<tr>
+# 					<td>ifName:</td>
+# 					<td></td>
+# 				</tr>
+# 				<tr>
+# 					<td>Max Speed:</td>
+# 					<td>1250.0 kBytes/s</td>
+# 				</tr>
+# 
+# 				<tr>
+# 					<td>Ip:</td>
+# 					<td>127.0.0.1 (localhost)</td>
+# 				</tr>
+# 
+# 			</table>
+# 		</div>
+
+
+### Interface 65539 >> Descr: 'Marvell-Yukon-88E8001/8003/8010-PCI-Gigabit-Ethernet-Controller' | Name: '' | Ip: '219.252.174.66' | Eth: '00-0f-ea-63-62-e4' ###
+
+Target[localhost_Marvell_Yukon_88E8001_8003_8010_PCI_Gigabit_Ethernet_Controller]: \Marvell\ Yukon\ 88E8001/8003/8010\ PCI\ Gigabit\ Ethernet\ Controller:public@localhost:
+SetEnv[localhost_Marvell_Yukon_88E8001_8003_8010_PCI_Gigabit_Ethernet_Controller]: MRTG_INT_IP="219.252.174.66" MRTG_INT_DESCR="Marvell-Yukon-88E8001/8003/8010-PCI-Gigabit-Ethernet-Controller"
+MaxBytes[localhost_Marvell_Yukon_88E8001_8003_8010_PCI_Gigabit_Ethernet_Controller]: 12500000
+Title[localhost_Marvell_Yukon_88E8001_8003_8010_PCI_Gigabit_Ethernet_Controller]: Marvell Yukon 88E8001/8003/8010 PCI Gigabit Ethernet Controller -- OKSTART2005
+PageTop[localhost_Marvell_Yukon_88E8001_8003_8010_PCI_Gigabit_Ethernet_Controller]: <h1>Marvell Yukon 88E8001/8003/8010 PCI Gigabit Ethernet Controller -- OKSTART2005</h1>
+		<div id="sysdetails">
+			<table>
+				<tr>
+					<td>System:</td>
+					<td>OKSTART2005 in </td>
+				</tr>
+				<tr>
+					<td>Maintainer:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td>Marvell-Yukon-88E8001/8003/8010-PCI-Gigabit-Ethernet-Controller  </td>
+				</tr>
+				<tr>
+					<td>ifType:</td>
+					<td>ethernetCsmacd (6)</td>
+				</tr>
+				<tr>
+					<td>ifName:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Max Speed:</td>
+					<td>12.5 MBytes/s</td>
+				</tr>
+
+				<tr>
+					<td>Ip:</td>
+					<td>219.252.174.66 (okstart2005)</td>
+				</tr>
+
+			</table>
+		</div>
+  위와 같은 설정을 보실 수 있습니다.
+위의 설정중에서 주석들을 모두 삭제해 주시고 아래 처럼 작성해 주시기 바랍니다.
+
+내용은 각각의 컴퓨터마다 다르므로 예를 동일하게 사용하시면 동작 되지 않습니다.
+꼭 cfgmaker.cmd 로 생성된 파일을 수정해 주셔야 합니다.
+
+  <div align="left">WorkDir: C:\MRTG\output Options[_]: bits, growright Language: korean #RunAsDaemon: yes #Interval: 5 EnableIPv6: no Target[eth0]: \Marvell\ Yukon\ 88E8001/8003/8010\ PCI\ Gigabit\ Ethernet\ Controller:public@localhost: SetEnv[eth0]: MRTG_INT_IP="219.252.174.66" MRTG_INT_DESCR="Marvell-Yukon-88E8001/8003/8010-PCI-Gigabit-Ethernet-Controller" MaxBytes[eth0]: 12500000 Title[eth0]: eth0 PageTop[eth0]: </div> <h1 align="left">eth0</h1> <div align="left">Extension[eth0]: htm </div> 위와 같이 수정해 줍니다.
+
+테스트를 하기 위해서 C:\MRTG\bin 디렉토리에 있는 mrtg.cmd 를 실행 합니다.
+
+ 
+ 
+ 
+
+ 위처럼 에러 메세지가 나타난것 처럼 보이지만 여러번 mrtg.cmd 를 실행하면 메세지가 없어 지는것을 보실 수 있습니다.
+위 처럼 나타난다면 정상적으로 동작 하는 것 입니다.
+에러 메세지가 나타난다면 mrtg.cfg 설정이 잘못된 경우이므로 다시 한번 확인해 주시거나
+cfgmaker.cmd 부터 다시 실시해 주시기 바랍니다.
+
+ 
+ 
+
+ C:\MRTG\output 디렉토리에 eth0.htm 이 생성되었는지 다시 확인 합니다.
+
+이제 index.htm 을 작성해 보도록 하겠습니다.
+
+ 
+
+ C:\MRTG\bin 디렉토리에 있는 indexmaker.cmd 를 실행 합니다.
+실행 한 다음 C:\MRTG\output 디렉토리에 index.htm 이 생성되었는지 다시 확인 합니다.
+
+이제 모든 설치 설정이 마무리 되었습니다.
+
+하지만 일일이 수동으로 실행할 수 없기 때문에
+NT 서비스로 동작 될 수 있도록 설정해 보겠습니다.
+
+일단 mrtg.cfg 를 편집기로 열으셔서
+
+ #RunAsDaemon: yes #Interval: 5 
+
+위 처럼 주석처리 해놓은 부분의 주석을 해제해 주시기 바랍니다.
+
+ RunAsDaemon: yes Interval: 5 
+
+이렇게 주석을 해제 하신 후 저장하여 주시고
+
+C:\MRTG\bin 디렉토리에 있는 set_service.cmd 를 실행 합니다.
+
+C:\MRTG\bin 디렉토리에 있는 mrtg_service.reg 파일을 더블 클릭하여 레지스트리에 저장합니다.
+
+ 
+ 
+ 
+
+ 시작 -> 제어판 -> 관리도구 -> 서비스
+
+에서 MRTG 가 있는지 또
+
+시작 -> 실행 -> regedit
+
+를 실행시켜서
+
+ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MRTG 
+
+가 있는지도 확인하여 주시기 바랍니다.
+
+이제 모두 마쳤습니다.
+
+시작 -> 제어판 -> 관리도구 -> 서비스
+
+에서 MRTG 를 실행해 주시기 바랍니다.
+
+ 
+ 
+
+ 작업관리자 -> 프로세스
+
+에 wperl.exe 가 있는지 확인 합니다.
+만약 서비스가 시작 되었는데 wperl.exe 프로세스가 없다면 mrtg.cfg 에서 위의 두가지 설정에 주석을 제거 하지 안은경우 입니다.
+다시 한번 확인해 주시기 바랍니다.
+
+ 
+
+ 이제 컴퓨터를 사용할때 MRTG 가 5분에 한번씩 갱신될 것 입니다.
+
+감사 합니다.
+
+출처 : http://www.apmsetup.com/tutorials.php?ct=15&tutid=29&uid=132#132
+ 카카오스토리 트위터 페이스북 '소프트웨어 > 서버관련' 카테고리의 다른 글 FreeBSD PDF 메뉴얼 전체  (0) 2007.10.30 Packet Queue & Session Queue - pf.conf  (1) 2007.10.30 FreeBSD 6.2 pf.conf Default File  (0) 2007.10.30 MRTG 윈도우에 설치하기  (9) 2007.10.24 Mercury SMTP Server 설정창  (1) 2007.10.23 메일 발송시 리턴메일 메시지에 대해서 설명  (0) 2007.10.22 Tweet 이 글은 "씨디맨" 의 동의 없이 전문 재배포 금지. 링크 및 트랙백은 허가 없이 무제한 허용 *  [자세히보기] 티스토리 댓글 : 9 개 SNS댓글 : 개 트랙백 : 0 개 질문 또는 댓글을 남겨 주세요. 질문글은 무조건 답변 드리겠습니다. 이곳에 질문을 올려주세요. 이 글과 연관이 없는 급한 질문은 빠른 질문/답변을 이용해 주세요! 댓글 입력 폼 Name * Password Website Secret                                   [무료이미지 업로드 방법 설명] 정석환 2008.02.01 22:46 메뉴얼대로 했는데 잘 안되네용.. xp와 2003서버에 설치해 봤는데용.. 성공을 하지 못했습니다. cfgmaker.cmd를 실행하면 그냥 화면만 뜸니다. 그리고 계속하시려면 아무키나 누르십시요.. 계속해서 이런메시지만 나옵니다. 바쁘신줄 알지만 이 메시지 보시면 연락이나 멜로 답변좀 부탁드립니다. 제가 좀 급해서 어떡게 해야 할지 몰라서 그럽니다. 그럼 감사합니다. 전화번호 :0505-535-5358 멜 :redzonex@empal.com 입니다. ... 감사합니다.. perm. |  mod/del. |  reply. cdmanii 박춘호 2008.02.02 09:12 메일 드렸습니다 ^^ perm. |  mod/del. |  reply. 델피에로 2008.03.11 17:29 저도 메뉴얼대로 했는데 wperl.exe라는 프로세서가 생성이 안 되네요... 그리고 5분에 한 번씩 업데이트도 안 되고요... html 문서 만드는 거랑 서비스까진 성공했는데.. 아.. 주석은 제거했습니다... 바쁘시더라도 부탁 좀 드리겠습니다. lvmarine@naver.com이나 여기 게시판에 답글 부탁 드리겠습니다.... perm. |  mod/del. |  reply. cdmanii 박춘호 2008.03.11 20:01 아마도 ActivePerl 이 재대로 설치가 안된듯해요 삭제하고 재설치하셔도 괜찮으니 재설치를 하고 실행해보는게 좋을것같습니다 그리고 오류가 난다면 오류메시지를 또는 그상황그림을 보여주시면 좀 제가 자세히 알려드릴 수 잇을듯해요 perm. |  mod/del. |  reply. 석범아 2008.08.07 14:30 저 오래 되었긴 하지만 저도 하던중 outout 폴더에 eth0.htm index.htm 두개의 문서가 생기긴 하였지만 내용이 부족한지 index page는 아무 내용도 안나오며 cmd 파일들 실행을 하면 전부 에러가 나서 실해이 되질 않네요... acmilan79@nate.com 으로 답변좀 부탁 합니다. 아님 메일주소 알려 주시면 제가 에러 화면들과 같이 파일 보내 드릴께요... 자문 좀 구합니다. perm. |  mod/del. |  reply. cdmanii 2008.08.07 15:28 메일드릴께요 perm. |  mod/del. |  reply. 김진호 2008.10.08 15:30 지금 설정을 하고있는데..mrtg.cfg 파일 설정을 잘 못하겠습니다 늘 에러가 생겼다고하네요.. ERROR: Line 1 ( <div align="left">WorkDir: C:\mrtg\output) in CFG file (C:\MRTG \bin\mrtg.cfg) does not make sense 이렇게 생기는데요..답변을 좀 받고 싶습니다..서버 2003 에서 하고있고요.. 귀찮게 해드려서 죄송합니다. perm. |  mod/del. |  reply. cdmanii 2008.10.08 16:52 ERROR: Line 1 ( <div align="left">WorkDir: C:\mrtg\output) in CFG file (C:\MRTG \bin\mrtg.cfg) does not make sense 이부분을 보자면 일단 cfg 파일을 열어보시면 WorkDir : C:/mrtg/output 부분이 잇을겁니다 이부분의 뜻은 cfg 파일의 결과물 파일을 저장하는 곳의 경로입니다 근데 Windows 2003 서버를 동작시키시고 아마도 IIS 로 웹을 돌리시겠죠 웹서비스 작업 폴더는 저기가 아닐겁니다 아마 D:/Webservice 나 이런경로로 쓰시겠죠 유저마다 다르겠지만요 지금 이미 힌트를 얻으셨을지는 모르겠지만요 일단 에러가 난이유는 저부분에 파일을 만들 수 없다는 뜻이구요 폴더가 없거나 또는 권한문제등으로 파일생성을 못했을겁니다 mrtg 의 인덱스파일을 만약에 D:/Webservice/mrtg 에 만들어 놓고 IIS 의 홈폴더가 저곳으로 설정되어있다면 http://localhost/index.htm 이라고 실행하면 D:/Webservice/mrtg/index.htm 이 실행되겠죠? 그리고 거기 인덱스파일에서 작업결과물 즉 트래픽이나 여러가지 그래프 사진을 뛰우려면 그 그림파일도 웹계정에 있어야합니다 즉 WorkDir: C:/mrtg/output 이부분을 WorkDir: D:/Webservice/mrtg/images/ 로 해놓아야한단거죠 index.htm 파일에서는 그림을 뛰울때 /images/traffic.jpg 이런식으로 접근이 가능하겠죠 정리하자면 일단 작업 결과물 저장폴더를 웹계정으로 바꿔야한다는것이구요 만약에 mrtg 로 모니터링할 서버가 많다면 폴더별로 구별해놓는게 좋습니다 WorkDir: D:/webservice/mrtg/images/servename 이런식으로요 경로를 정하는건 자기맘이긴 합니다 다만 cfg 파일을 통일시켜서 여러개를 만들고 돌리다 보면 그림파일명도 동일하게 저장되기에 폴더명을 똑같게 해둘경우에는 서로 겹쳐서 쓰지를 못하는경우가 생깁니다 http://cdmanii.tistory.com/entry/MRTG-설치부터-활용-까지-작성중 이 링크를 들어가보시면 제가 좀더 자세히 처음부터끝까지 다 적어둔부분이 있습니다 쭉 다 읽어보시면 분명 도움이 되실듯하네요 perm. |  mod/del. |  reply. SNMPv3공부중 2014.01.24 10:46 안녕하세요. snmpv3를 열심히 공부하던 중에 위와 같은 글을 발견하게 되어 질문드립니다. snmp는 v1부터 시작하여 현재까지 v3까지 나왔습니다. v3미만 버전에서는 community string 방식을 이용하여 이것의 디폴트 이름은 public으로 되어있어 사전공격(dictionary attack)가 가능하다고 배웠습니다. 하지만 v3는 community string 방식이 아닌 username/password 방식으로 되어있다고 공부했느데 위와 같은 경우에도 v3미만 버전에서의 사전공격(dictionary attack)가 가능한 것인지... 궁금합니다. 영어 원문을 찾아보아도 사전공격은 snmp 모든 버전에서 가능하다고만 나와있지 실제로 그 공격을 하는 방법이나 도구는 전혀 찾아볼 수가 없어 이곳에 글을 남겨봅니다. 자세한 답변은 choisupe@naver.com으로 해주시면 감사하겠습니다. 새해복 마니 받으십시오 ^^ perm. |  mod/del. |  reply. Please enable JavaScript to view the comments powered by Disqus. 트랙백 Trackback Address :: http://cdmanii.com/trackback/24 Prev 1 ... 306330643065306630673068306930703071 ... 3086 Next 씨디맨 연락처, 리뷰 의뢰 문의 cdmaniipch@gmail.com 010-3066-8471 (정말 급한 질문은 전화로 해주셔도 됩니다. 다만 가능하면 질문/답변란을 이용해주세요.) recent post 2015 우수SW전시회 웹캣2.0 시큐메일가드... (2) 코넥티아 m stylus 리뷰 스타일러스펜 코... 6포트 USB 충전기 와사비망고 EQ 6포트 5... (3) 우유 거품기 카페드아모르 이중망 스텐거... (1) 크로마서브샘플링 테스트 이미지 4:4:4... 레노버 게이밍 노트북 Y700 후기 고성능... (5) BC카드 RED 산타 이벤트 AOA 산타복 하고... (1) 와사비망고 UHD430 REAL4K HDMI 2.0 사용기. (9) 다이렉트클라우드-박스 웹에서 PC에서 어... (2) 2015 우수SW전시회 SW중심사회 주역들 미... (1) 윈도우10 다운로드 TH2 10586 USB 미디어... (10) UFC 서울 OTVN에서 생중계 김동현 벤도... (3) 코넥티아 m stylus 개봉기 코어M 와콤펜... (9) category 전체보기 (3086) 작성중 (0) 공지사항 (51) 블로그이벤트 (44) 유용한_팁 (224) 블로그_팁 (60) 맥북 맥OS (21) 맥 관련 리뷰 (8) 맥 프로그래밍 (1) 맥관련 유용한 팁 (12) 모바일 (235) 안드로이드 어플 (73) 애플 iOS 어플 (6) 갤럭시 S3 (13) 얼리어답터_리뷰 (1490) 스마트기기 (238) 컴퓨터 (49) 모니터 (40) 그래픽카드 (14) 하드디스크 (20) NAS (24) SSD (50) 컴퓨터주변기기 (16) 외장하드 (23) 튜닝 쿨링 관련 (36) 노트북 (95) 카메라 관련 (44) 악세서리 (291) 키보드 (17) 마우스 (17) 열화상카메라 (3) 유무선공유기 (20) 인테리어 및 소품 (73) 하드웨어 (222) 뉴스 (84) 컴퓨터 튜닝 관련 (129) 하드웨어 사전 (9) 소프트웨어 (220) 버그리포트 (26) 윈도우7 (25) 윈도우8 (67) 윈도우10 (14) 서버관련 (27) MSSQL (10) ASP / JS / CSS / C# (27) 3rd Part (6) Security (2) 포토샵 (4) 다운로드 (115) 배경화면 (7) 소소한 이야기 (494) 삼성SDI (17) 여행하기 (1) Frequently Asked Question 윈도우8 무선 느린 문제 해결 방법 컴퓨터 하드웨어 점검은 어떻게 합니까? 모니터 화면이 꽉 차서 나오지 않습니다 하드디스크에 문제 점검은 어떻게 합니까? SSD 최적화는 어떻게 하는게 좋습니까? 좋은 노트북을 소개해주세요 컴퓨터 조립 동영상을 보고 싶습니다 좋은 파워서플라이는 어떤것입니까? 유튜브 속도가 느립니다. 블로그를 잘 꾸미고 싶어요 Hot Post 컴퓨터 조립 완벽 가이드 SSD 최적화 방법 노트북 HDD SSD로 교체 방법 갤럭시 펌웨어 업데이트 실패시 해결방법 유튜브 속도 패치 버전 2.1 Intel i5 655K 오버클러킹대회 1등 4대 포터블 브라우저 모음 티스토리 블로그 팁 모음 좋은 파워서플라이란? 한글 윈도우7 설치 방법 영문 윈도우7 설치 방법 스누피 고스트 사용 방법 윈도우7 메모리 검사 방법 USB, SD메모리로 윈도우7 설치 방법 아이폰4 불량 체크 방법 컴퓨터 하드웨어 점검 방법 아이피 변경 방법 차단 우회 방법 Computer Utility CPU-Z 1.61 GPU-Z 0.6.2 AS SSD Benchmark v1.6 AIDA32 Crystal Disk Mark 3 Core Temp Strider's DirectInput Mouse HZ Super Pi mod 1.5 XS EVEREST_Ultimate_Edition HD Tune Pro 5.00 배드섹터 검사 GM HDD SCAN FurMark OpenGL Benchmark ATTO Disk Benchmark RightMark Memory analyzer v3.80 Youtube SpeedUp Program FreeStudio Youtube Downloader ATITool 0.26 MEMTEST Gold Memory PuTTY Swiff Chart 3 Pro Fraps 3.0 Counter 전체 : 32,656,531 오늘 : 2,980 어제 : 20,239 모바일 카운터는 합쳐지지 않은 상태의 카운터 입니다. 실제 카운터는 더 높습니다. tag cloud 음악 모바일 디자인 lg IT 제품리뷰 체험단 윈도우8 안드로이드 스마트폰 제품 SSD 인테리어 리뷰 동영상 이벤트 유플러스 게임 아이폰4 후기 삼성 사진 인텔 벤치마크 얼리어답터 블로그 스펙 카메라 윈도우7 성능 아이폰 추천 노트북 Review It 사용기 씨디맨 samsung 개봉기 다운로드 컴퓨터 archive 2015/12 (9) 2015/11 (31) 2015/10 (38) 2015/09 (37) 2015/08 (45) 2015/07 (46) 2015/06 (46) 2015/05 (43) 2015/04 (45) 2015/03 (44) 2015/02 (39) 2015/01 (34) recent reply 복사머신 : 좋은정보 감사합니다. 덕분에... 00:33 바람바람 : 메일솔루션의 샌드박싱기능은... 12.08 바람바람 : 메일솔루션의 샌드박싱기능은... 12.08 익명 : 아... 저도 fn 키가 반전되어... 12.08 1258 : SLI검색하다가 왔습니다 970두... 12.08 시민 : 야. 12.08 시민 : 야. 12.08 pc대통령 : 지금 rgbw 패널 속여팔고 불량... 12.08 abflug : 상당히 편리해는 보이지만 가... 12.08 핑구야 날자 : 한방에 해결할 수 있어 편하군요. 12.07 7en0s : 아침일찍부터 ㅎㅎㅎ 잘보고... 12.07 recent trackback 촬스네 IT 공작소 : 조텍의 무소음 미니PC, Z... 04.18 핑구야 날자의 IT와 일상 : 뷰웨이 피코프로젝터 개... 04.01 핑구야 날자의 IT와 일상 : 뷰웨이 피코프로젝터 개... 03.30 블랙아미 : 아이폰6플러스 배경화면... 03.14 블랙아미 : 아이폰6 실버 블랙, 스페... 03.14 꿈을꾸는 파랑새 : LG U+ 공유기(CAPD-6000)... 2014 #Ludens : 내가 사용하는 윈도우8... 2014 #Ludens : 강의자료 출력 없이 대학... 2014 해커 C 이야기 : 티스토리 스팸 트랙백 차... 2014 해커 C 이야기 : 티스토리 트랙백 스팸 차... 2014 해커 C 이야기 : WipeDisk > 하드디스... 2014 Recommand Book 씨디맨’s Blog is powered by Daum / Tistory 1.1 Admin |  Post |  Rss 2.0 |  XHTML |  CSS  Designed by hi8ar.net Back to top

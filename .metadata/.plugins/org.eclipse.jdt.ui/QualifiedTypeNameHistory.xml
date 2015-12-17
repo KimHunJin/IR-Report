@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
-<fullyQualifiedTypeName name="java.sql.DriverManager"/>
-<fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="FileRead"/>
 <fullyQualifiedTypeName name="java.beans.Statement"/>
@@ -27,18 +24,40 @@
 <fullyQualifiedTypeName name="java.util.regex.Matcher"/>
 <fullyQualifiedTypeName name="IR_Report2.MainSearch"/>
 <fullyQualifiedTypeName name="javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction"/>
-<fullyQualifiedTypeName name="javax.swing.SpinnerDateModel"/>
 <fullyQualifiedTypeName name="java.util.Hashtable"/>
-<fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="IR_Report3.URLParsing"/>
-<fullyQualifiedTypeName name="IR_Report3.WordStorage"/>
 <fullyQualifiedTypeName name="com.mysql.fabric.HashShardMapping"/>
+<fullyQualifiedTypeName name="IR_Report3.WordStorage"/>
+<fullyQualifiedTypeName name="HtmlParsing"/>
+<fullyQualifiedTypeName name="java.sql.Savepoint"/>
+<fullyQualifiedTypeName name="BaseLog"/>
+<fullyQualifiedTypeName name="kr.ac.kaist.swrc.jhannanum.hannanum.Workflow"/>
+<fullyQualifiedTypeName name="kr.ac.kaist.swrc.jhannanum.hannanum.WorkflowFactory"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="kr.ac.kaist.swrc.jhannanum.comm.Sentence"/>
+<fullyQualifiedTypeName name="kr.ac.kaist.swrc.jhannanum.comm.Eojeol"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="javax.swing.SpinnerDateModel"/>
+<fullyQualifiedTypeName name="SplitWord"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.sql.Array"/>
+<fullyQualifiedTypeName name="java.io.EOFException"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="Weight"/>
+<fullyQualifiedTypeName name="Main"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="org.w3c.dom.html.HTMLMapElement"/>
+<fullyQualifiedTypeName name="Stemming"/>
+<fullyQualifiedTypeName name="SaveWord"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="FileManagement"/>
 </qualifiedTypeNameHistroy>

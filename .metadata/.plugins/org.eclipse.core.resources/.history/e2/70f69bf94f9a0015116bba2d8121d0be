@@ -1,0 +1,112 @@
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+
+/**
+ * 웹 상에서 특정 혹은 랜덤 주소의 사이트에서 텍스트를 가져오는 클래스입니다.
+ * 
+ * 완전한 랜덤 주소는 아니지만, 한 블로그에서 작성자의 게시글을 가져옵니다.
+ * 
+ * ****** 사용법 ******
+ * 
+ * 1. 다른 클래스에서 사용법
+ *   
+ *   1.1) HtmlParsing htmlParsing = new HtmlParsing();
+ *   
+ *   1.2) 
+ * 
+ * @author HunJin
+ *
+ */
+
+public class HtmlParsing {
+
+	/**
+	 * 고정 주소 입니다.
+	 */
+	private final static String ADDRESS = "http://cdmanii.com/";
+
+	/**
+	 * 이 클래스에서 테스트 결과를 알고 싶으면 이(main) 메서드의 주석을 제거하십시오.
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		HtmlParsing htmlParsing = new HtmlParsing();
+		System.out.println(htmlParsing.getText("http://flymogi.tistory.com"));
+		System.out.println(htmlParsing.getText());
+	}
+
+	/**
+	 * htmlParsing 메서드입니다.
+	 * 
+	 * 주소를 입력하면 그 주소의 텍스트를 가져옵니다.
+	 * 
+	 * @param addressURL
+	 * @return
+	 */
+	private String getText(String addressURL) {
+		return getParsing(addressURL);
+	}
+
+	/**
+	 * htmlParsing 메서드입니다.
+	 * 
+	 * 오버라이딩을 했으며, 주소를 입력하지 않을 경우
+	 * 
+	 * 고정된 블로그의 랜덤 번호 주소의 텍스트를 가져옵니다.
+	 * 
+	 * @return
+	 */
+	private String getText() {
+		String addressURL = randomAddress();
+		return getParsing(addressURL);
+	}
+
+	/**
+	 * 주소의 텍스트를 가져오는 메서딉니다.
+	 * 
+	 * 주소를 검색하지 못했을 경우 예외처리를 합니다.
+	 * 
+	 * @param addressURL
+	 * @return
+	 */
+	private String getParsing(String addressURL) {
+		String text = null;
+		try {
+			Document doc = Jsoup.connect(addressURL).get(); // 웹과 연결을 합니다.
+			Element contents = doc.select("*").first(); // 웹에서 모든 내용을 가져옵니다.
+			text = contents.text(); // 이를 문자에 저장시킵니다.
+			return text;
+
+		} catch (IOException ie) {
+			text = "없는 주소입니다! ErrorCode = 404";
+			return text;
+		}
+	}
+
+	/**
+	 * 고정된 블로그에서 숫자만을 변경하여 랜덤으로 사이트를 가져옵니다.
+	 * 
+	 * @return
+	 */
+	private String randomAddress() {
+		String url = ADDRESS + randomNumber();
+		System.out.println(url);
+		return url;
+	}
+
+	/**
+	 * 난수 생성 메서드 입니다.
+	 * 
+	 * @return
+	 */
+	private int randomNumber() {
+
+		return (int) (Math.random() * 5000) + 1;
+	}
+
+}

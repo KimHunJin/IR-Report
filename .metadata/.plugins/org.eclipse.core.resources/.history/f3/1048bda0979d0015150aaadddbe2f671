@@ -1,0 +1,101 @@
+import java.io.EOFException;
+import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Main {
+
+	final static int TOTALFILENUMBER = 100;
+	ArrayList<Double> arrTestDF = new ArrayList<>();
+	ArrayList<HashSet> arrHashSet = new ArrayList<>();
+	ArrayList<HashMap> arrHashMap = new ArrayList<>();
+	ArrayList<String> arrUrl = new ArrayList<>();	
+	
+	
+	void addURL(String mURL) {
+		arrUrl.add(mURL);
+	}
+	
+	
+	void start() {
+		long start = System.currentTimeMillis();
+		HtmlParsing htmlParsing = new HtmlParsing();
+		String mURL = htmlParsing.randomAddress();
+		addURL(mURL);
+		String[] split = new SplitWord().getSplit(htmlParsing.getText(mURL));
+		SaveWord saveWord = new SaveWord();
+		saveWord.setHashSetWord(split);
+		HashSet<String> hashSet = saveWord.getHashSetWord();
+		HashMap<String, Integer> hashMap = saveWord.getHashMapFrequence();
+		ArrayList<String> arr = new ArrayList<>(hashSet);
+		arrHashSet.add(hashSet);
+		arrHashMap.add(hashMap);
+		for (int i = 0; i < arr.size(); i++) {
+			System.out.println("머지 : " + arr.get(i) + "  " + hashMap.get(arr.get(i)));
+		}
+
+		for (int i = 1; i < TOTALFILENUMBER; i++) {
+			mURL = htmlParsing.randomAddress();
+			arrUrl.add(mURL);
+			String[] testSplit = new SplitWord().getSplit(htmlParsing.getText(mURL));
+			SaveWord saveWordTest = new SaveWord();
+			saveWordTest.setHashSetWord(testSplit);
+			HashSet<String> hashSetTest = saveWordTest.getHashSetWord();
+			HashMap<String, Integer> hashMapest = saveWordTest.getHashMapFrequence();
+			arrHashSet.add(hashSetTest);
+			arrHashMap.add(hashMapest);
+		}
+		String testWord;
+		boolean isCheck = true;
+		long end = System.currentTimeMillis();
+		System.out.println(end-start);
+		do {
+
+			System.out.print("질의어 입력 : ");
+			Scanner sc = new Scanner(System.in);
+			testWord = sc.nextLine();
+			start = System.currentTimeMillis();			
+			if(testWord.equals("q")) {
+				isCheck = false;
+				System.out.println("종료되었습니다.");
+				break;
+			}
+
+			int mDF = 0;
+			for (int i = 0; i < arrHashSet.size(); i++) {
+				if (arrHashSet.get(i).contains(testWord)) {
+					mDF++;
+				}
+			}
+			for(int i=0;i<arrHashMap.size();i++) {
+				if(arrHashMap.get(i).containsKey(testWord)) {
+					double mTF = new Weight().getTF((int) arrHashMap.get(i).get(testWord));
+					double mIDF = new Weight().getIDF(TOTALFILENUMBER, mDF);
+					double mWeight = new Weight().getWeight(mTF, mIDF);
+					System.out.println("문서 " + i + " " + arrUrl.get(i)+ " - " + testWord + " : " + arrHashMap.get(i).get(testWord) + " TF : " + mTF + " IDF : " + mIDF + " Weight : " + mWeight);
+				}
+			}
+			end = System.currentTimeMillis();
+			System.out.println(end-start);
+			System.out.println(testWord + " :  DF : " + mDF);
+		} while (isCheck);
+	}
+	
+	public static void main(String[] args) {
+		
+		Main a = new Main();
+		a.start();
+		
+
+
+		
+
+
+
+
+		
+
+	}
+}

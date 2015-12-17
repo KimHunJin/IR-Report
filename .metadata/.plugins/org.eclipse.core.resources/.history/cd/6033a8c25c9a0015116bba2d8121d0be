@@ -1,0 +1,11 @@
+import java.util.HashMap;
+import java.util.HashSet;
+
+public interface SaveWord {
+	
+	HashMap<String, Integer> hashMapFrequence = new HashMap<>();
+	HashSet<String> hashSetWord = new HashSet<>();
+	
+	
+
+}

@@ -1,0 +1,7 @@
+
+public class HtmlParsing {
+	
+	private final static String ADDRESS = "http://cdmanii.com/";
+
+
+}

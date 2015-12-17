@@ -1,0 +1,55 @@
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+public class HtmlParsing {
+	
+	/**
+	 * 고정 주소 입니다.
+	 */
+	private final static String ADDRESS = "http://cdmanii.com/";
+	
+	public static void main(String[] args) {
+		HtmlParsing htmlParsing = new HtmlParsing();
+		htmlParsing.htmlParsing("http://flymogi.tistory.com");
+		System.out.println(htmlParsing.htmlParsing());
+	}
+
+	private String htmlParsing(String addressURL) {
+		return getText(addressURL);
+	}
+	
+	private String htmlParsing() {
+		String addressURL = randomAddress();
+		return getText(addressURL);
+	}
+	
+	private String getText(String addressURL) {
+		String text = null;
+		try {
+			Document doc = Jsoup.connect(addressURL).get(); // 웹에서
+			Element contents = doc.select("*").first(); // 내용 중에서 원하는 부분을 가져온다.
+			text = contents.text(); // 원하는 부분은 Elements형태로 되어 있으므로 이를
+			return text;
+
+		} catch (IOException ie) {
+			System.out.println("없는 주소입니다! ErrorCode = 404");
+			System.exit(0);
+			return null;
+		}
+	}
+	
+	private String randomAddress() {
+		String url = ADDRESS + randomNumber();
+		System.out.println(url);
+		return url;
+	}
+	
+	private int randomNumber() {
+
+		return (int) (Math.random() * 5000) + 1;
+	}
+
+}

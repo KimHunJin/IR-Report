@@ -1,0 +1,15 @@
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class SaveWord {
+	
+	HashMap<String, Integer> hashMapFrequence = new HashMap<>();
+	HashSet<String> hashSetWord = new HashSet<>();
+	
+	public void setHashSetWord(String[] text) {
+		
+		for (String string : text) {
+			hashSetWord.add(string);
+		}
+	}
+}

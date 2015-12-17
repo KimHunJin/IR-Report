@@ -1,0 +1,57 @@
+import java.util.HashMap;
+import java.util.HashSet;
+
+/**
+ * 단어 배열을 가지고 와서 중복을 제거하여 hashSet과 hashMap에 저장하는 클래스입니다.
+ * 
+ * hashMap에는 단어와 그 단어의 빈도수가 저장됩니다.
+ * 
+ * hashSet에는 단어 리스트가 저장됩니다.
+ * 
+ * ****** 사용법 ******
+ * 
+ * 외부 클래스에서 사용법
+ * 
+ * 1. hashSet 사용법
+ * 
+ * 1) SaveWord saveWord = new SaveWord();
+ * 
+ * 2) saveWord.setHashSetWord(배열);
+ * 
+ * 3) HashSet hashSet = saveWord.getHashSetWord();
+ * 
+ * 4) ArrayList arr = new arrayList(hashSet);
+ * 
+ * 5) System.out.println(arr.get[index]);
+ * 
+ * 
+ * @author HunJin
+ *
+ */
+public class SaveWord {
+
+	HashMap<String, Integer> hashMapFrequence = new HashMap<>();
+	HashSet<String> hashSetWord = new HashSet<>();
+	
+	public void setHashSetWord(String[] text) {
+
+		for (String string : text) {
+			if (hashSetWord.contains(string)) {
+				hashMapFrequence.put(string, hashMapFrequence.get(string) + 1);
+				continue;
+			} else {
+				hashSetWord.add(string);
+				hashMapFrequence.put(string, 1);
+			}
+		}
+
+	}
+
+	public HashSet<String> getHashSetWord() {
+		return hashSetWord;
+	}
+	
+	public HashMap<String, Integer> getHashMapFrequence() {
+		return hashMapFrequence;
+	}
+}

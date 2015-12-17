@@ -1,0 +1,30 @@
+/**
+ * TF, IDF, DF를 계산하여 Weight를 계한하는 클래스입니다.
+ * 
+ * 
+ * 
+ * @author HunJin
+ *
+ */
+
+public class Weight {
+	
+	private double mTF, mIDF, mDF, mWeight;
+	
+	void getTF(int frequenceCount) {
+		mTF = 1 + new BaseLog().logB(frequenceCount, 2);
+	}
+	
+	void getIDF(int totalFileNumber) {
+		mIDF = new BaseLog().logB(totalFileNumber/mDF, 2);
+	}
+	
+	void getDF() {
+		
+	}
+	
+	void getWeight() {
+		mWeight = mTF * mIDF;
+	}
+
+}
